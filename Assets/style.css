@@ -69,3 +69,13 @@ textarea {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
+
+#deleteBtn {
+  text-align: center;
+}
+
+.deleteContainer {
+  align-items: center;
+  margin: 10vh;
+  padding: 10px;
+}
