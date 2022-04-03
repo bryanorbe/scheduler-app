@@ -88,8 +88,23 @@ $("button").on("click", function(){
 })
     $("#seventeen").append(localStorage.getItem("currentBox17"));
 
+})
 
+//add functionality to change current time to green, future time to blue & past time to red
 
-//add functionality to change current time to red, future time to green & past time to gray
+$("textarea").each(function() {
+    var timeSlot = parseInt($(this).attr("data"));
+
+    if (militaryTime === timeSlot) {
+        $(this).addClass("present");
+    } 
+    
+    if (militaryTime < timeSlot) {
+        $(this).addClass("future");
+    } 
+
+    if (militaryTime > timeSlot) {
+        $(this).addClass("past")
+    }
 
 })
