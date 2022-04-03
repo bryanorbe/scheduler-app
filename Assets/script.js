@@ -1,35 +1,48 @@
-//set military time
-var militaryTime = parseInt(moment().format('H'));
-console.log(militaryTime)
+//initialize the app
+$(document).ready(function(){
+    loadSaved()
+    boxColor()
+    updateTime()
+})
 
-//add current date
-var today = moment().format("dddd, MMMM Do");
-$("#currentDay").text(today);
+// //set time in 24h format
+// var militaryTime = parseInt(moment().format('H'));
+// console.log(militaryTime)
+
+//set current date&time
+function updateTime() {
+    $("#now").text(moment().format('MMMM Do YYYY, h:mm:ss a'))
+};
+
+var timer = setInterval(updateTime, 1000);
+
 
 //add functionality to change current time to blue, future time to green & past time to red
 
-$("textarea").each(function() {
-    var timeSlot = parseInt($(this).attr("data"));
-
-    if (militaryTime === timeSlot) {
-        $(this).addClass("present");
-    } 
-    
-    if (militaryTime < timeSlot) {
-        $(this).addClass("future");
-    } 
-
-    if (militaryTime > timeSlot) {
-        $(this).addClass("past")
-    }
-
-})
+function boxColor() {
+    $("textarea").each(function () {
+        var hourStr = (moment().format("H")) // use add function to test different times, 0 is the present
+        var hour = Number(hourStr)
+        calendarHourStr = this.dataset.timeslot;
+        calendarHour = Number(calendarHourStr)
+        // console.log("calendarHour "+ typeof(calendarHour))
+        if (calendarHour > hour) {
+            $(this).addClass("future")
+            $(this).removeClass("past")
+        }   else if (calendarHour === hour) {
+            $(this).addClass("present");
+        }   else {
+           $(this).addClass("past")
+        }
+    })
+}
 
 //program the timeslots for each hour (x9)
 $(".saveBtn9").click(function(){
     var textValue = $("#nine").val();
     localStorage.setItem("9", textValue)
 })
+
 
 $(".saveBtn10").click(function(){
     var textValue = $("#ten").val();
@@ -78,3 +91,15 @@ $("#deleteBtn").click(function(){
     location.reload()
 })
 
+//add function to fetch stored data
+function loadSaved() {
+    $("#nine").text(localStorage.getItem("9"))
+    $("#ten").text(localStorage.getItem("10"))
+    $("#eleven").text(localStorage.getItem("11"))
+    $("#twelve").text(localStorage.getItem("12"))
+    $("#thirteen").text(localStorage.getItem("13"))
+    $("#fourteen").text(localStorage.getItem("14"))
+    $("#fifteen").text(localStorage.getItem("15"))
+    $("#sixteen").text(localStorage.getItem("16"))
+    $("#seventeen").text(localStorage.getItem("17"))
+}
